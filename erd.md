@@ -3,8 +3,8 @@ erDiagram
     %% USER TABLE WITH PROFILE INFO
     USER {
         int id PK
-        string username UNIQUE
-        string email UNIQUE
+        string username "UNIQUE"
+        string email "UNIQUE"
         string password
         string role
         string display_name
@@ -34,9 +34,14 @@ erDiagram
 
     MAGICAL_EFFECTS {
         int id PK
-        int item_id FK
         string effect_name
         text effect_description
+    }
+
+    ITEM_MAGICAL_EFFECTS {
+        int id PK
+        int item_id FK
+        int magical_effect_id FK
     }
 
     %% INVENTORY TABLE
@@ -102,5 +107,6 @@ erDiagram
     TRADE ||--o{ TRADE_ITEM : contains
     ITEM ||--o{ TRADE_ITEM : exchanged_in
     ITEM ||--o{ ITEM_STATISTICS : has_stats
-    ITEM ||--o{ MAGICAL_EFFECTS : has_effects
+    ITEM ||--o{ ITEM_MAGICAL_EFFECTS : has_effects
+    MAGICAL_EFFECTS ||--o{ ITEM_MAGICAL_EFFECTS : applies_to
     TRADE ||--o{ TRADE_HISTORY : recorded_in
